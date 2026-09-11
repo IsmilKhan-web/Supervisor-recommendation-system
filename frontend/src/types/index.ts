@@ -1,4 +1,11 @@
 export type Role = 'student' | 'faculty' | 'admin';
+export type ProjectMode = 'solo' | 'group';
+export type RequestStatus = 'pending' | 'approved' | 'denied';
+
+export interface GroupMember {
+  name: string;
+  email: string;
+}
 
 export interface Profile {
   id: string;
@@ -12,6 +19,8 @@ export interface Profile {
   courses: string[];
   publications: string[];
   research_keywords: string[];
+  project_mode: ProjectMode;
+  group_members: GroupMember[];
   created_at: string;
 }
 
@@ -111,4 +120,28 @@ export interface AdminUpdateFacultyBody {
   research_keywords?: string[];
   total_slots?: number;
   taken_slots?: number;
+}
+
+export interface SupervisionRequest {
+  id: string;
+  student_id: string;
+  faculty_id: string;
+  status: RequestStatus;
+  project_mode: ProjectMode;
+  group_members: GroupMember[];
+  project_title: string;
+  project_proposal: string;
+  term: string;
+  createdAt: string;
+  updatedAt: string;
+  faculty?: Profile | null;
+  student?: Profile | null;
+}
+
+export interface CreateRequestBody {
+  faculty_id: string;
+  project_mode: ProjectMode;
+  group_members?: GroupMember[];
+  project_title?: string;
+  project_proposal?: string;
 }

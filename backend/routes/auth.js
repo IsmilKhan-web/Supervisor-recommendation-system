@@ -79,7 +79,7 @@ router.get('/me', authRequired, async (req, res) => {
 // PUT /api/auth/me
 router.put('/me', authRequired, async (req, res) => {
   try {
-    const { bio, department, office_hours, courses, publications, research_keywords } = req.body;
+    const { bio, department, office_hours, courses, publications, research_keywords, project_mode, group_members } = req.body;
     const updates = {};
     if (bio !== undefined) updates.bio = bio;
     if (department !== undefined) updates.department = department;
@@ -87,6 +87,8 @@ router.put('/me', authRequired, async (req, res) => {
     if (courses !== undefined) updates.courses = courses;
     if (publications !== undefined) updates.publications = publications;
     if (research_keywords !== undefined) updates.research_keywords = research_keywords;
+    if (project_mode !== undefined) updates.project_mode = project_mode;
+    if (group_members !== undefined) updates.group_members = group_members;
     const user = await User.findByIdAndUpdate(req.user._id, updates, { new: true });
     return res.json({ profile: user.toJSON() });
   } catch (err) {

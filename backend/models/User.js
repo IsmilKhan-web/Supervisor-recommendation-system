@@ -16,6 +16,15 @@ const userSchema = new mongoose.Schema({
   courses: { type: [String], default: [] },
   publications: { type: [String], default: [] },
   research_keywords: { type: [String], default: [] },
+  project_mode: {
+    type: String,
+    enum: ['solo', 'group'],
+    default: 'solo',
+  },
+  group_members: [{
+    name: { type: String, default: '' },
+    email: { type: String, default: '' },
+  }],
 }, { timestamps: true });
 
 userSchema.methods.toJSON = function () {

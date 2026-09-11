@@ -36,7 +36,7 @@ export const api = {
     request<{ token: string; profile: Profile }>('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) }),
 
   getMe: () => request<{ profile: Profile }>('/auth/me'),
-  updateMe: (body: { bio?: string; department?: string; office_hours?: string; courses?: string[]; publications?: string[]; research_keywords?: string[] }) =>
+  updateMe: (body: { bio?: string; department?: string; office_hours?: string; courses?: string[]; publications?: string[]; research_keywords?: string[]; project_mode?: 'solo' | 'group'; group_members?: { name: string; email: string }[] }) =>
     request<{ profile: Profile }>('/auth/me', { method: 'PUT', body: JSON.stringify(body) }),
 
   // research areas
@@ -82,6 +82,16 @@ export const api = {
     request<{ profile: Profile }>(`/admin/faculty/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
   adminDeleteFaculty: (id: string) =>
     request<{ success: boolean }>(`/admin/faculty/${id}`, { method: 'DELETE' }),
+
+  // supervision requests
+  getMyRequests: () => request<SupervisionRequest[]>('/requests/mine'),
+  getIncomingRequests: () => request<SupervisionRequest[]>('/requests/incoming'),
+  createRequest: (body: CreateRequestBody) =>
+    request<SupervisionRequest>('/requests', { method: 'POST', body: JSON.stringify(body) }),
+  updateRequestStatus: (id: string, status: 'approved' | 'denied') =>
+    request<SupervisionRequest>(`/requests/${id}/status`, { method: 'PUT', body: JSON.stringify({ status }) }),
+  withdrawRequest: (id: string) =>
+    request<{ success: boolean }>(`/requests/${id}`, { method: 'DELETE' }),
 };
 
 // types re-exported for convenience
@@ -98,4 +108,6 @@ import type {
   RecommendationHistoryEntry,
   AdminCreateFacultyBody,
   AdminUpdateFacultyBody,
+  SupervisionRequest,
+  CreateRequestBody,
 } from '../types';

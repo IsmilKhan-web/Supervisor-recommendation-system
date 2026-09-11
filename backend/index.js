@@ -11,6 +11,7 @@ import facultySlotRoutes from './routes/facultySlots.js';
 import facultyResearchAreaRoutes from './routes/facultyResearchAreas.js';
 import recommendationRoutes from './routes/recommendations.js';
 import adminRoutes from './routes/admin.js';
+import requestRoutes from './routes/requests.js';
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use('/api/faculty-slots', facultySlotRoutes);
 app.use('/api/faculty-research-areas', facultyResearchAreaRoutes);
 app.use('/api/recommendations', recommendationRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/requests', requestRoutes);
 
 app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 
