@@ -1,7 +1,7 @@
 {
   "name": "supervisor-recommendation-system",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "install:backend": "cd backend && npm install",
